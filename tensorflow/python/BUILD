@@ -205,6 +205,7 @@ py_library(
         ":util",
         ":weights_broadcast_ops",
         ":while_v2",
+        ":x_do_nothing_op",
         "//tensorflow/core:protos_all_py",
         "//tensorflow/lite/python:lite",
         "//tensorflow/python/compat",
@@ -8265,5 +8266,31 @@ cuda_py_test(
     python_version = "PY3",
     deps = [
         ":client_testlib",
+    ],
+)
+
+tf_py_test(
+     name = "user_ops_test",
+     size = "small",
+     srcs = ["ops/user_ops_test.py"],
+ )
+
+tf_gen_op_wrapper_private_py(
+    name = "x_do_nothing_op_gen",
+    visibility = [
+        "//learning/brain/python/ops:__pkg__",
+    ],
+    deps = [
+        "//tensorflow/core:x_do_nothing_op_op_lib",
+    ],
+)
+py_library(
+    name = "x_do_nothing_op",
+    srcs = [
+        "ops/x_do_nothing_op.py",
+    ],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":x_do_nothing_op_gen",
     ],
 )

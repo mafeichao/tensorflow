@@ -891,6 +891,7 @@ cc_library(
         ":training_ops_op_lib",
         ":user_ops_op_lib",
         ":word2vec_ops",
+        ":x_do_nothing_op_op_lib",
         "//tensorflow/c/kernels:bitcast_op_lib",
         "//tensorflow/compiler/mlir/tensorflow:mlir_passthrough_op",
     ] + if_chromiumos(
@@ -1059,6 +1060,7 @@ cc_library(
         "//tensorflow/core/kernels:training_ops",
         "//tensorflow/core/kernels:word2vec_kernels",
         "//tensorflow/core/kernels/sparse:kernels",
+        "//tensorflow/core/kernels:x_do_nothing_op",
     ] + if_not_windows([
         "//tensorflow/core/kernels/neon:neon_depthwise_conv_op",
     ]) + if_mkl([
@@ -3054,5 +3056,16 @@ transitive_hdrs(
         ":protos_all_cc",
         ":stream_executor",
         "//tensorflow/core/platform:platform_strings",
+    ],
+)
+
+tf_gen_op_libs(
+    is_external = False,
+    op_lib_names = [
+        "x_do_nothing_op",
+    ],
+    deps = [
+        ":lib",
+        ":protos_all_cc",
     ],
 )

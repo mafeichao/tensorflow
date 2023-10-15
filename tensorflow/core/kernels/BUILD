@@ -8836,3 +8836,12 @@ tf_kernel_library(
         "@sobol_data",
     ],
 )
+
+tf_kernel_library(
+  name = "x_do_nothing_op",
+  prefix = "x_do_nothing_op",
+  deps = [
+        "//tensorflow/core:framework",
+        "//tensorflow/core:lib",
+  ],
+)
